@@ -2,6 +2,7 @@ package web_server
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/matheustavarestrindade/CraftyGo/frontend"
 )
 
 type WebServer struct {
@@ -11,20 +12,14 @@ type WebServer struct {
 
 func Start(port string) *WebServer {
 	server := gin.Default()
+
 	webServer := &WebServer{
 		instance: server,
 		port:     port,
 	}
 
-	server.LoadHTMLGlob("templates/*")
-
-	server.GET("/", func(c *gin.Context) {
-		c.HTML(200, "index.tmpl", gin.H{
-			"title": "CraftyGo",
-		})
-	})
+	frontend.SvelteKitHandler(server)
 
 	webServer.instance.Run(":" + port)
-
 	return webServer
 }

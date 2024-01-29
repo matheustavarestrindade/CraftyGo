@@ -10,4 +10,5 @@ type GameServer struct {
 
 type MinecraftServer struct {
 	GameServer
+    AcceptEula bool `json:"accept_eula"`
 }
